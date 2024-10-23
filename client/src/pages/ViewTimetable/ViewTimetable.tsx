@@ -1,11 +1,11 @@
-import { Central as Layout } from "@/layouts";
 import { Timetable as TimetableView } from "@/components";
-import { useEffect, useState } from "react";
-import { ServiceAPI } from "@/infrastructure";
-import { useParams } from "react-router-dom";
 import { useAccountContext } from "@/context";
+import { ServiceAPI } from "@/infrastructure";
 import { Timetable } from "@/infrastructure/ServiceAPI";
+import { Central as Layout } from "@/layouts";
 import { scheduledEventToCalendarBlock } from "@/utils";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import "./ViewTimetable.style.scss";
 
 function ViewTimetable() {
@@ -35,7 +35,7 @@ function ViewTimetable() {
   }
 
   return (
-    <Layout title={"Student Timetable"}>
+    <Layout title={timetable.name}>
       <TimetableView
         events={timetable.items.map((item: any) =>
           scheduledEventToCalendarBlock(item),

@@ -1,19 +1,20 @@
-import { Central as Layout } from "@/layouts";
-import { Section } from "./Section";
-import { SearchSection } from "./SearchSection";
-import { ResultsSection } from "./ResultsSection";
-import { TimetableSection } from "./TimetableSection";
-import { useState } from "react";
+import { useAccountContext } from "@/context";
 import { ServiceAPI } from "@/infrastructure";
 import { ScheduledEvent } from "@/infrastructure/ServiceAPI";
-import { WorksheetSection } from "./WorksheetSection";
-import { useAccountContext } from "@/context";
-import { useNavigate } from "react-router-dom";
+import { Central as Layout } from "@/layouts";
 import { scheduledEventToCalendarBlock } from "@/utils";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./BuildTimetable.style.scss";
+import { ResultsSection } from "./ResultsSection";
+import { SearchSection } from "./SearchSection";
+import { Section } from "./Section";
+import { TimetableSection } from "./TimetableSection";
+import { WorksheetSection } from "./WorksheetSection";
 
 function BuildTimetable() {
   const { jwt } = useAccountContext();
+  const [timetableName, setTimetableName] = useState(new Date().toISOString());
   const [scheduledEvents, setScheduledEvents] = useState<ScheduledEvent[]>([]);
   const [selectedEvents, setSelectedEvents] = useState<ScheduledEvent[]>([]);
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ function BuildTimetable() {
 
   const createTimetable = async () => {
     const result = await ServiceAPI.createTimetable(
-      new Date().toISOString(),
+      timetableName,
       selectedEvents.map((event) => event.id.toString()),
       jwt,
     );
@@ -60,6 +61,7 @@ function BuildTimetable() {
             <WorksheetSection
               selectedEvents={selectedEvents}
               removeEvent={removeEvent}
+              setTimetableName={setTimetableName}
               createTimetable={createTimetable}
             />
           </Section>
