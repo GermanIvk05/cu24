@@ -1,15 +1,17 @@
+import { Base as Layout } from "@/layouts";
 import { useState } from "react";
 import { useAccountContext } from "../../context";
-import { Base as Layout } from "@/layouts";
 import "./Login.style.scss";
 
 function Login() {
+  const [username, setUsername] = useState("");
+  const [passowrd, setPassword] = useState("");
   const [message, setMessage] = useState(null);
   const { login } = useAccountContext();
 
   const attemptLogin = async () => {
     try {
-      const message = await login("admin@email.com", "password");
+      const message = await login(username, passowrd);
       setMessage(message);
     } catch (error) {
       console.log(error);
@@ -32,10 +34,18 @@ function Login() {
               username and password.
             </div>
           </div>
-          {message && <p>{message}</p>}
+          {message && <p className="Login__panel__content__error">{message}</p>}
           <div className="Login__panel__content__input">
-            <input type="text" placeholder="MyCarletonOne username"></input>
-            <input type="password" placeholder="Password"></input>
+            <input
+              type="text"
+              placeholder="MyCarletonOne username"
+              onChange={e => setUsername(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={e => setPassword(e.target.value)}
+            />
           </div>
           <div className="Login__panel__content__checkbox">
             <input type="checkbox"></input>
