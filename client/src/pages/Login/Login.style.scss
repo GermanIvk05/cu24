@@ -5,7 +5,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   -webkit-background-size: cover;
-  background-image: url("/carleton_background.jpg");
+  background-image: url("/carleton_background.jpg"); // change this to change the image
   font-size: 0.9em;
 
   &__panel {
@@ -14,7 +14,7 @@
     background-color: white;
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0; // moves login panel to the left side of the screen
 
     img {
       padding-top: 5.625rem;
@@ -24,14 +24,20 @@
 
     &__button {
       border: none;
+      border-radius: 0.75rem; // round the button conners
       background-color: rgb(38, 114, 236);
       color: rgb(255, 255, 255);
       padding: 0.25rem 1.25rem 0.375rem 1.25rem;
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 1rem;
+
+      // there's probably a better way
+      min-height: 40px;
+      min-width: 100px;
 
       &:hover {
-        background: rgb(212, 227, 251);
+        background: rgb(0, 60, 156); // make button go darker instead of ligher on hover
+        transition: 0.7s; // make stransition smooth
       }
     }
 
@@ -53,10 +59,15 @@
         }
       }
 
+      &__error {
+        color: #c85305; // do error message styling here
+      }
+
       &__input {
         display: flex;
         flex-direction: column;
         gap: 0.625rem;
+
         input {
           width: 100%;
           height: 28px;
@@ -70,6 +81,7 @@
         font-size: 0.9rem;
         margin-top: 0.625rem;
         margin-bottom: 2.375rem;
+
         input {
           margin: auto 0;
           margin-right: 0.25rem;
